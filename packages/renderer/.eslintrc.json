@@ -7,10 +7,14 @@
     /** @see https://eslint.vuejs.org/rules/ */
     "plugin:vue/vue3-recommended"
   ],
+  "parser": "vue-eslint-parser",
   "parserOptions": {
     "parser": "@typescript-eslint/parser",
     "ecmaVersion": 12,
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "rules": {
     /** These rules are disabled because they are incompatible with prettier */

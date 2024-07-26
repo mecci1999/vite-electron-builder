@@ -2,8 +2,9 @@
 
 import {chrome} from '../../.electron-vendors.cache.json';
 import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
 import {renderer} from 'unplugin-auto-expose';
-import {join} from 'node:path';
+import {join, resolve} from 'node:path';
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
@@ -18,9 +19,10 @@ const config = {
   envDir: PROJECT_ROOT,
   resolve: {
     alias: {
-      '/@/': join(PACKAGE_ROOT, 'src') + '/',
+      '/@/': resolve(PACKAGE_ROOT),
     },
   },
+  assetsDir: 'assets',
   base: '',
   server: {
     fs: {
@@ -33,7 +35,7 @@ const config = {
     outDir: 'dist',
     assetsDir: '.',
     rollupOptions: {
-      input: join(PACKAGE_ROOT, 'index.html'),
+      input: resolve(PACKAGE_ROOT, 'entries/main-renderer/index.html'),
     },
     emptyOutDir: true,
     reportCompressedSize: false,
@@ -43,8 +45,9 @@ const config = {
   },
   plugins: [
     vue(),
+    vueJsx(),
     renderer.vite({
-      preloadEntry: join(PACKAGE_ROOT, '../preload/src/index.ts'),
+      preloadEntry: resolve(PACKAGE_ROOT, '../../preload/src/index.ts'),
     }),
   ],
 };
