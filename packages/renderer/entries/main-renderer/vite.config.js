@@ -1,13 +1,13 @@
 /* eslint-env node */
 
-import {chrome} from '../../.electron-vendors.cache.json';
+import {chrome} from '../../../../.electron-vendors.cache.json';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import {renderer} from 'unplugin-auto-expose';
-import {join, resolve} from 'node:path';
+import {join} from 'node:path';
 
 const PACKAGE_ROOT = __dirname;
-const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
+const PROJECT_ROOT = join(PACKAGE_ROOT, '../../../../');
 
 /**
  * @type {import('vite').UserConfig}
@@ -19,10 +19,10 @@ const config = {
   envDir: PROJECT_ROOT,
   resolve: {
     alias: {
-      '/@/': resolve(PACKAGE_ROOT),
+      '/@/': join(PACKAGE_ROOT, '../../') + '/',
     },
   },
-  assetsDir: 'assets',
+  assetsDir: join(PACKAGE_ROOT, '../../assets'),
   base: '',
   server: {
     fs: {
@@ -35,7 +35,7 @@ const config = {
     outDir: 'dist',
     assetsDir: '.',
     rollupOptions: {
-      input: resolve(PACKAGE_ROOT, 'entries/main-renderer/index.html'),
+      input: join(PACKAGE_ROOT, 'index.html'),
     },
     emptyOutDir: true,
     reportCompressedSize: false,
@@ -47,7 +47,7 @@ const config = {
     vue(),
     vueJsx(),
     renderer.vite({
-      preloadEntry: resolve(PACKAGE_ROOT, '../../preload/src/index.ts'),
+      preloadEntry: join(PACKAGE_ROOT, '../../../preload/src/index.ts'),
     }),
   ],
 };

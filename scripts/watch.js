@@ -8,7 +8,7 @@ import {spawn} from 'child_process';
 const mode = (process.env.MODE = process.env.MODE || 'development');
 
 /** @type {import('vite').LogLevel} */
-const logLevel = 'warn';
+const logLevel = 'info';
 
 /**
  * Setup watcher for `main` package
@@ -97,7 +97,7 @@ function setupPreloadPackageWatcher({ws}) {
 const rendererWatchServer = await createServer({
   mode,
   logLevel,
-  configFile: 'packages/renderer/vite.config.js',
+  configFile: 'packages/renderer/entries/main-renderer/vite.config.js',
 }).then(s => s.listen());
 
 await setupPreloadPackageWatcher(rendererWatchServer);
